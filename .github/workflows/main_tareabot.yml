@@ -36,6 +36,7 @@ jobs:
             dist/
             package.json
             package-lock.json
+            node_modules/
             faq.json
 
   deploy:
