@@ -1,0 +1,165 @@
+[
+    {
+        "id": "root",
+        "text": "Olá! Sou o assistente de RH. Qual é a sua dúvida?",
+        "options": [
+            {
+                "label": "Férias",
+                "nextId": "ferias"
+            },
+            {
+                "label": "Atestado Médico",
+                "nextId": "atestado_medico"
+            },
+                        {
+                "label": "Vale Alimentação / Refeição",
+                "nextId": "vale_ar"
+            }
+        ]
+    },
+    {
+        "id": "ferias",
+        "text": "O que deseja saber sobre férias?",
+        "inputType": "select",
+        "options": [
+            {
+                "label": "Marquei minhas férias e quero alterar, o que devo fazer?",
+                "nextId": "pgto_ferias1"
+            },
+            {
+                "label": "Qual o prazo que eu tenho para alterar minhas férias?",
+                "nextId": "pgto_ferias1"
+            }
+        ]
+    },
+    {
+        "id": "pgto_ferias1",
+        "text": "Informe o seu tipo de contrato de trabalho:",
+        "options": [
+            {
+                "label": "CLT",
+                "nextId": "pgto_ferias1_clt"
+            },
+            {
+                "label": "Estagiário",
+                "nextId": "pgto_ferias1_estagiario"
+            }
+        ]
+    },
+    {
+        "id": "pgto_ferias1_clt",
+        "text": "Você tem o prazo de 30 dias antes da data já agendada, para enviar para a sua liderança imediata, através de e-mail, a solicitação de alteração do período agendado, copiando o DP na comunicação.\n*Atente-se: a nova data de agendamento, tem que ter no mínimo, 90 dias para o início do novo agendamento.",
+        "options": []
+    },
+    {
+        "id": "pgto_ferias1_estagiario",
+        "text": "Você tem o prazo de 30 dias antes da data já agendada, para enviar para a sua liderança imediata, através de e-mail, a solicitação de alteração do período agendado, copiando o DP na comunicação.\n*Atente-se: a nova data de agendamento, tem que ter no mínimo, 90 dias para o início do novo agendamento.",
+        "options": []
+    },
+
+
+
+
+    {
+        "id": "atestado_medico",
+        "text": "Sobre que tipo de atestado deseja saber?",
+        "inputType": "select",
+        "options": [
+            {
+                "label": "Atestado de acompanhamento",
+                "nextId": "pgto_atestado1"
+            },
+            {
+                "label": "Atestado de comparecimento",
+                "nextId": "pgto_atestado1"
+            },
+            {
+                "label": "Atestado Médico",
+                "nextId": "pgto_atestado1"
+            }
+        ]
+    },
+    {
+        "id": "pgto_atestado1",
+        "text": "Qual seria a sua dúvida em relação ao atestado?",
+        "inputType": "select",
+        "options": [
+            {
+                "label": "Quais informações o atestado deve conter?",
+                "nextId": "pgto_atestado1_info"
+            },
+            {
+                "label": "Qual o prazo para envio do atestado?",
+                "nextId": "pgto_atestado1_prazo"
+            },
+            {
+                "label": "Como deve ser feito o envio do atestado?",
+                "nextId": "pgto_atestado1_envio"
+            },
+            {
+                "label": "Atestado acima de 15 dias?",
+                "nextId": "pgto_atestado1_acima_15"
+            }
+        ]
+    },
+    {
+        "id": "pgto_atestado1_info",
+        "text": "O documento deve conter: nome completo, data de emissão, tempo de afastamento recomendado, assinatura e carimbo com CRM (ou registro do profissional de saúde habilitado",
+        "options": []
+    },
+    {
+        "id": "pgto_atestado1_prazo",
+        "text": "O colaborador/estagiário deve apresentar o documento em até 48 horas após a emissão do atestado ou, quando possível, no mesmo dia do afastamento. \n \n O atestado deve ser entregue ou em formato físico ou digital. Se digital, enviar foto legível ou digitalizado para o email dp@tarea.com.br copiando o gestor direto.",
+        "options": []
+    },
+    {
+        "id": "pgto_atestado1_envio",
+        "text": "O atestado pode ser entregue em formato físico ou digital. Se digital, enviar foto legível ou digitalizado para o e-mail dp@tarea.com.br copiando o gestor direto, se possível no mesmo dia, ou em até 48 horas.",
+        "options": []
+    },
+    {
+        "id": "pgto_atestado1_acima_15",
+        "text": "O atestado deve ser entregue em formato físico ou digital. Se digital, enviar foto legível ou digitalizado para o e-mail dp@tarea.com.br copiando o gestor direto, se possível no mesmo dia, ou em até 48 horas. \n \n Após o envio o RH entrará em contato para orientações sobre afastamento pelo INSS. ",
+        "options": []
+    },
+
+
+
+
+
+    {
+        "id": "vale_ar",
+        "text": "O que deseja saber sobre o seu vale alimentação ou refeição?",
+        "inputType": "select",
+        "options": [
+            {
+                "label": "Alteração do valor pago mensalmente entre os cartões que já uso",
+                "nextId": "pgto_vale_ar1"
+            },
+            {
+                "label": "Solicitar alteração do benefício para cartão alimentação ou refeição",
+                "nextId": "pgto_vale_ar2"
+            },
+                        {
+                "label": "Perda ou roubo do cartão",
+                "nextId": "pgto_vale_ar3"
+            }
+        ]
+    },
+    {
+        "id": "pgto_vale_ar1",
+        "text": "Para realizar a alteração do valor pago do benefício VR, é necessário que você envie o email para dp@tarea.com.br com os novos valores de cada modalidade (refeição/alimentação) com o prazo de envio do email até o dia 20 de cada mês.",
+        "options": []
+    },
+        {
+        "id": "pgto_vale_ar2",
+        "text": "Para realizar a alteração da modalidade do seu cartão (refeição> alimentação ou vice-versa) é necessário que você envie o email para dp@tarea.com.br informando a sua mudança até o dia 20 de cada mês.",
+        "options": []
+    },
+        {
+        "id": "pgto_vale_ar3",
+        "text": "1º Acesse o seu aplicativo do VR e faça o bloqueio do seu cartão. \n 2º Solicitar a segunda via do cartão diretamento no aplicativo conforme o motivo do ocorrido (perda/roubo/cartão danificado) \n 3º Após o recebimento do cartão solicitar o desbloqueio junto ao RH. ",
+        "options": []
+    }
+
+]
