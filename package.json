@@ -3,7 +3,9 @@
     "botbuilder": "^4.23.3",
     "botbuilder-dialogs": "^4.23.3",
     "dotenv": "^17.2.3",
-    "restify": "^11.1.0"
+    "lodash": "^4.17.21",
+    "restify": "^11.1.0",
+    "restify-errors": "^8.1.0"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
@@ -13,7 +15,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js" 
+    "start": "node dist/index.js"
   },
   "engines": {
     "node": ">=18.0.0"
