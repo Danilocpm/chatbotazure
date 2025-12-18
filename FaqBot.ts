@@ -11,7 +11,7 @@ import * as path from 'path';
 import { FaqNode, UserStateData } from './types';
 
 // Carrega o JSON
-const rawData = fs.readFileSync(path.join(__dirname, 'faq.json'), 'utf8');
+const rawData = fs.readFileSync(path.join(__dirname, '..', 'faq.json'), 'utf8');
 const faqData: FaqNode[] = JSON.parse(rawData);
 
 export class FaqBot extends ActivityHandler {
