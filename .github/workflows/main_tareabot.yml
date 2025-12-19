@@ -36,6 +36,7 @@ jobs:
             !.github
             !*.md
             !.gitignore
+            !.env.example
 
   deploy:
     runs-on: ubuntu-latest
