@@ -32,6 +32,9 @@ export class FaqBot extends ActivityHandler {
 
         // Evento: Quando o usuário envia uma mensagem
         this.onMessage(async (context, next) => {
+            // Envia um typing indicator para mostrar que o bot está processando
+            await context.sendActivity({ type: 'typing' });
+            
             let text = context.activity.text;
             const value = context.activity.value;
             

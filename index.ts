@@ -35,9 +35,18 @@ const adapter = new BotFrameworkAdapter({
     channelAuthTenant: process.env.MicrosoftAppTenantId
 });
 
+// Timeout mais longo para cold start
 adapter.onTurnError = async (context, error) => {
     console.error(`\n [onTurnError] unhandled error: ${error}`);
-    await context.sendActivity('Ocorreu um erro no bot.');
+    console.error('Stack:', error.stack);
+    
+    try {
+        await context.sendActivity('⏳ O bot está inicializando. Por favor, envie sua mensagem novamente em alguns segundos.');
+        // Tenta salvar o estado mesmo com erro
+        await conversationState.saveChanges(context, true);
+    } catch (err) {
+        console.error('Erro ao enviar mensagem de erro:', err);
+    }
 };
 
 const memoryStorage = new MemoryStorage();
@@ -50,4 +59,20 @@ server.post('/api/messages', (req, res, next) => {
     adapter.processActivity(req, res, async (context) => {
         await myBot.run(context);
     });
+});
+
+// Health check endpoint para verificar se o bot está ativo
+server.get('/api/health', (req, res, next) => {
+    res.send(200, { 
+        status: 'ok', 
+        timestamp: new Date().toISOString(),
+        message: 'Bot is running' 
+    });
+    next();
+});
+
+// Endpoint raiz
+server.get('/', (req, res, next) => {
+    res.send(200, 'Bot está ativo e funcionando!');
+    next();
 });

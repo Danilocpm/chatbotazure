@@ -1,0 +1,31 @@
+name: Keep Bot Alive
+
+on:
+  schedule:
+    # Executa a cada 10 minutos (Azure F1 desliga após 20 min de inatividade)
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # Permite executar manualmente
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Health Endpoint
+        env:
+          BOT_URL: ${{ secrets.BOT_URL }}
+        run: |
+          echo "🏓 Fazendo ping no bot para evitar cold start..."
+          
+          # Faz requisição ao endpoint de health
+          response=$(curl -s -o /dev/null -w "%{http_code}" ${BOT_URL}/api/health || echo "failed")
+          
+          if [ "$response" = "200" ]; then
+            echo "✅ Bot está ativo! Status: $response"
+          else
+            echo "⚠️ Bot pode estar em cold start. Status: $response"
+            echo "Tentando novamente em 10 segundos..."
+            sleep 10
+            curl -s ${BOT_URL}/api/health || echo "Segunda tentativa falhou"
+          fi
+          
+          echo "Ping concluído às $(date)"
