@@ -14,7 +14,17 @@ jobs:
         env:
           BOT_URL: ${{ secrets.BOT_URL }}
         run: |
+          # Verifica horário (UTC)
+          hour=$(date -u +%H)
+          # Brasília é UTC-3, então 8h-18h BRT = 11h-21h UTC
+          if [ $hour -lt 11 ] || [ $hour -ge 21 ]; then
+            echo "⏰ Fora do horário de operação (8h-18h Brasília)"
+            echo "Horário atual UTC: ${hour}:00"
+            exit 0
+          fi
+          
           echo "🏓 Fazendo ping no bot para evitar cold start..."
+          echo "Horário atual UTC: ${hour}:00 (Brasília: ~$((hour-3)):00)"
           
           # Faz requisição ao endpoint de health
           response=$(curl -s -o /dev/null -w "%{http_code}" ${BOT_URL}/api/health || echo "failed")
