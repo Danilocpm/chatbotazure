@@ -34,10 +34,10 @@ export class FaqBot extends ActivityHandler {
         this.onMessage(async (context, next) => {
             // Envia um typing indicator para mostrar que o bot está processando
             await context.sendActivity({ type: 'typing' });
-            
+
             let text = context.activity.text;
             const value = context.activity.value;
-            
+
             // Recupera estado (com default para history)
             const currentState = await this.userStateAccessor.get(context, { currentNodeId: 'root', history: [] });
 
@@ -108,7 +108,7 @@ export class FaqBot extends ActivityHandler {
 
             // 3. Navegação Normal
             const currentNode = faqData.find(n => n.id === currentState.currentNodeId);
-            
+
             if (!currentNode) {
                 // Se perdeu o estado, volta pro root
                 await this.userStateAccessor.set(context, { currentNodeId: 'root', history: [] });
@@ -123,11 +123,11 @@ export class FaqBot extends ActivityHandler {
                 // Push no histórico
                 currentState.history.push(currentNode.id);
                 await this.userStateAccessor.set(context, { ...currentState, currentNodeId: selectedOption.nextId });
-                
+
                 const nextNode = faqData.find(n => n.id === selectedOption.nextId);
                 if (nextNode) {
                     await this.displayNode(context, nextNode, true); // true pq agora tem histórico
-                    
+
                     // Se for nó final (sem opções)
                     if (nextNode.options.length === 0) {
                         // Pergunta se quer reiniciar
@@ -141,7 +141,7 @@ export class FaqBot extends ActivityHandler {
                             ]
                         );
                         await context.sendActivity(MessageFactory.attachment(card));
-                        
+
                         // Define estado de espera
                         await this.userStateAccessor.set(context, { ...currentState, currentNodeId: 'WAITING_RESET' });
                     }
@@ -149,10 +149,10 @@ export class FaqBot extends ActivityHandler {
             } else {
                 // Se estiver na raiz e for a primeira interação (ou input inválido na raiz), mostra o menu inicial sem erro
                 if (currentState.currentNodeId === 'root' && currentState.history.length === 0) {
-                     await this.displayNode(context, currentNode, false);
+                    await this.displayNode(context, currentNode, false);
                 } else {
-                     await context.sendActivity("Opção inválida ou não reconhecida.");
-                     await this.displayNode(context, currentNode, currentState.history.length > 0);
+                    await context.sendActivity("Opção inválida ou não reconhecida.");
+                    await this.displayNode(context, currentNode, currentState.history.length > 0);
                 }
             }
 
@@ -166,9 +166,6 @@ export class FaqBot extends ActivityHandler {
         });
     }
 
-    // Função auxiliar removida pois a lógica foi movida para onMessage/displayNode para gerenciar histórico
-    // private async updateAndShowNode(...) {}
-
     // Função para renderizar a resposta
     private async displayNode(context: TurnContext, node: FaqNode | undefined, showBack: boolean) {
         if (!node) return;
@@ -179,7 +176,7 @@ export class FaqBot extends ActivityHandler {
         if (node.inputType === 'select') {
             // Renderiza Adaptive Card com Dropdown
             const choices = node.options.map(opt => ({ title: opt.label, value: opt.label }));
-            
+
             const card = CardFactory.adaptiveCard({
                 type: "AdaptiveCard",
                 version: "1.0",
@@ -218,11 +215,11 @@ export class FaqBot extends ActivityHandler {
 
         // Suggested Actions (Botões flutuantes de navegação)
         const navActions = [];
-        
+
         if (showBack) {
             navActions.push({ type: 'imBack', title: '⬅ Voltar', value: 'Voltar' });
         }
-        
+
         if (node.id !== 'root') {
             navActions.push({ type: 'imBack', title: '🏠 Início', value: 'Início' });
         }

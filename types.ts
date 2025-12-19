@@ -6,7 +6,7 @@ export interface FaqOption {
 export interface FaqNode {
     id: string;
     text: string;
-    inputType?: 'button' | 'select'; // Novo campo para definir o tipo de input
+    inputType?: 'button' | 'select';
     options: FaqOption[];
 }
 

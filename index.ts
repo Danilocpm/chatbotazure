@@ -1,4 +1,3 @@
-// index.ts
 import * as path from 'path';
 import * as restify from 'restify';
 import { BotFrameworkAdapter, ConversationState, MemoryStorage } from 'botbuilder';
@@ -12,7 +11,7 @@ console.log("AppId:", process.env.MicrosoftAppId ? "Carregado" : "Não encontrad
 console.log("TenantId:", process.env.MicrosoftAppTenantId ? "Carregado" : "Não encontrado");
 
 // 2. CONFIGURAÇÃO DE PROXY (Adicione isto aqui)
-// Isso garante que o Node não tente usar proxy para chamadas locais
+// Isso garante que o Node não tente usar proxy para chamadas locais (auxilia na depuração local)
 process.env.NO_PROXY = process.env.NO_PROXY || 'localhost,127.0.0.1,::1';
 
 // Se você estiver atrás de um proxy corporativo e precisar autenticar com a Azure
@@ -41,7 +40,7 @@ adapter.onTurnError = async (context, error) => {
     console.error('Stack:', error.stack);
     
     try {
-        await context.sendActivity('⏳ O bot está inicializando. Por favor, envie sua mensagem novamente em alguns segundos.');
+        await context.sendActivity('O bot está inicializando. Por favor, envie sua mensagem novamente em alguns segundos.');
         // Tenta salvar o estado mesmo com erro
         await conversationState.saveChanges(context, true);
     } catch (err) {
@@ -54,7 +53,7 @@ const conversationState = new ConversationState(memoryStorage);
 
 const myBot = new FaqBot(conversationState);
 
-// Rota com a correção do 'next'
+// Rota para mensagens do bot
 server.post('/api/messages', (req, res, next) => {
     adapter.processActivity(req, res, async (context) => {
         await myBot.run(context);
